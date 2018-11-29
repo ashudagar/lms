@@ -68,6 +68,14 @@ class Department(models.Model):
         return self.name
 
 
+class BookManager(models.Manager):
+    def get_queryset(self):
+        """
+        this will return all the active objects which are not deleted
+        """
+        return super(BookManager, self).get_queryset().filter(is_deleted=False)
+
+
 @python_2_unicode_compatible
 class Book(models.Model):
     title = models.CharField(max_length=100)
@@ -77,6 +85,8 @@ class Book(models.Model):
     deleted_on = models.DateTimeField(null=True)
     created_on = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, related_name='book_created_by')
+    active_objects = BookManager()
+    objects = models.Manager()
 
     def __str__(self):
         return self.title
@@ -93,4 +103,4 @@ class BooksIssued(models.Model):
     issued_by = models.ForeignKey(User, related_name='book_issued_by')
 
     def __str__(self):
-        return self.user + self.book
+        return '%s__%s' % (self.user.get_full_name(), self.book)
