@@ -1,0 +1,15 @@
+# Bleeding edge Django
+django==1.9.7
+
+# Configuration
+django-environ==0.4.0
+
+# For user registration, either via email or social
+# Well-built with regular release cycles!
+django-allauth==0.25.2
+
+celery==4.0.0
+djangorestframework==3.4.0
+django-filter==1.0.4
+
+validate-email==1.3

@@ -20,7 +20,6 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows books to be viewed or edited.
     """
-    queryset = Book.objects.all()
     serializer_class = BookSerializer
 
     def get_queryset(self):

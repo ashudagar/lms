@@ -2,13 +2,9 @@ from django.contrib import admin
 from django import forms
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from library.models import User, Book, Author, Department, BooksIssued
-
-
-admin.site.register(Book)
-admin.site.register(Author)
-admin.site.register(Department)
-admin.site.register(BooksIssued)
+from django.contrib.admin.sites import AlreadyRegistered
+from library.models import User
+from django.apps import apps
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -57,3 +53,17 @@ class MyUserAdmin(AuthUserAdmin):
     activate.allow_tags = True
     activate.short_description = 'Activate'
     save_on_top = True
+
+
+app = apps.get_app_config('library')
+for model_name, model in app.models.items():
+    try:
+        admin.site.register(model)
+    except AlreadyRegistered as e:
+        pass
+
+#admin.site.register(Book)
+#admin.site.register(Author)
+#admin.site.register(Department)
+#admin.site.register(BooksIssued)
+
