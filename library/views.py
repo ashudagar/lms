@@ -37,7 +37,7 @@ class BookViewSet(viewsets.ModelViewSet):
         return Response({'result': 'success'})
 
 
-class BooksIssuedViewSet(viewsets.ModelViewSet):
+class BooksissuedViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows issued books to be viewed or edited.
     """
